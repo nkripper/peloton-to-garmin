@@ -1,15 +1,22 @@
-import json
-from peloton import Peloton
-import garmin
+from modules.peloton import Peloton
 import os
 import logging
+import json
 
 
 def main():
-    log.warning("testing warning message")
     peloton = Peloton(os.environ['PELOTON_USERNAME'], os.environ['PELOTON_PASSWORD'])
+
+    peloton.login()
+    logger.info(peloton.token)
+
+    print(json.dumps(peloton.workouts(), indent=4))
 
 
 if __name__ == "__main__":
-    log = logging.getLogger("main")
+    # noinspection SpellCheckingInspection
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-6s %(name)s -> %(message)s')
+    logger = logging.getLogger('main.app.py')
+    logger.debug("Logging started...")
+
     main()
